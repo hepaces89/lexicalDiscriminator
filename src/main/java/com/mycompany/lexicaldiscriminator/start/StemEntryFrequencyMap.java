@@ -6,6 +6,9 @@
 
 package com.mycompany.lexicaldiscriminator.start;
 
+import java.util.Iterator;
+import java.util.Map;
+
 /**
  *
  * @author hubert
@@ -17,7 +20,6 @@ public class StemEntryFrequencyMap extends java.util.HashMap{
 		super();
 	}
 	
-
 	public void add(StemEntry stemEntry){
 		if(this.containsKey(stemEntry)){
 			Integer oldValue = (Integer)this.get(stemEntry);
@@ -26,6 +28,18 @@ public class StemEntryFrequencyMap extends java.util.HashMap{
 			this.put(stemEntry, 1);
 		}
 		
+	}
+	
+	@Override
+	public String toString(){
+		String output = "{";
+		Iterator it = this.entrySet().iterator();
+		while(it.hasNext()){
+			Map.Entry<StemEntry, Integer> ent = (Map.Entry<StemEntry, Integer>)it.next();
+			output = output + "\n[" + ent.getKey().toString() + " | " + ent.getValue() + "]";
+		}
+		output = output + "\n}";
+		return output;
 	}
 	
 	public void main(String[] args){
