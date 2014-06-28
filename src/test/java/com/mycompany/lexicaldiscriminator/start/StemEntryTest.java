@@ -76,6 +76,25 @@ public class StemEntryTest {
 	}
 	
 	@Test
+	public void stemEntriesSharingTheSameStemAndPOS_shouldBeConsideredEqual(){
+		boolean expected = true;
+		
+		boolean result = stemEntryA.equals(stemEntryB);
+		Assert.assertTrue(result == expected);
+		
+		result = stemEntryA.equals(stemEntryA);
+		Assert.assertTrue(result == expected);	
+	}
+	
+	@Test
+	public void stemEntriesSharingTheSameStemAndPOS_shouldHaveTheSameHashCode(){
+		int aHash = stemEntryA.hashCode();
+		int bHash = stemEntryB.hashCode();
+		
+		Assert.assertTrue(aHash == bHash);
+	}
+	
+	@Test
 	public void stemEntriesThatDoNotShareTheSameStemAndPOS_shouldNotBeConsideredTheSame(){
 		int result = stemEntryA.compareTo(stemEntryC);
 		Assert.assertFalse(result == 0);
@@ -85,5 +104,33 @@ public class StemEntryTest {
 		
 		result = stemEntryA.compareTo(stemEntryE);
 		Assert.assertFalse(result == 0);
+	}
+	@Test
+	public void stemEntriesThatDoNotShareTheSameStemAndPOS_shouldNotBeConsideredEqual(){
+		boolean result = stemEntryA.equals(stemEntryC);
+		Assert.assertFalse(result);
+		
+		result = stemEntryA.equals(stemEntryD);
+		Assert.assertFalse(result);
+		
+		result = stemEntryA.equals(stemEntryE);
+		Assert.assertFalse(result);
+	}
+	
+	@Test
+	public void stemEntriesThatDoNotShareTheSameStemAndPOS_shouldNotShareTheSameHashCode(){
+		int aHash = stemEntryA.hashCode();
+		int cHash = stemEntryC.hashCode();
+		int dHash = stemEntryD.hashCode();
+		int eHash = stemEntryE.hashCode();
+		
+		boolean result = aHash == cHash;
+		Assert.assertFalse(result);
+		
+		result = aHash == dHash;
+		Assert.assertFalse(result);
+		
+		result = aHash == eHash;
+		Assert.assertFalse(result);
 	}
 }
