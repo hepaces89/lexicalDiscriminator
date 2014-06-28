@@ -12,18 +12,17 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
  * @author hubert
  */
 public class StemEntryFrequencyMapTest {
-	StemEntry stemEntryA = new StemEntry();
-	StemEntry stemEntryB = new StemEntry();
-	StemEntry stemEntryC = new StemEntry();
-	StemEntry stemEntryD = new StemEntry();
-	StemEntry stemEntryE = new StemEntry();
+	StemEntry stemEntryA = new StemEntry("bob", "bob", "v");
+	StemEntry stemEntryB = new StemEntry("bob", "bob", "v");
+	StemEntry stemEntryC = new StemEntry("cancerous", "cancer", "adj");
+	StemEntry stemEntryD = new StemEntry("cancer", "cancer", "n");
+	StemEntry stemEntryE = new StemEntry("chuck", "chuck", "v");
 	
 	public StemEntryFrequencyMapTest() {
 	}
@@ -38,20 +37,6 @@ public class StemEntryFrequencyMapTest {
 	
 	@Before
 	public void setUp() {
-		stemEntryA.setPartOfSpeech("NN");
-		stemEntryA.setStem("bob");
-		
-		stemEntryB.setStem("bob");
-		stemEntryB.setPartOfSpeech("NN");
-		
-		stemEntryC.setStem("bib");
-		stemEntryC.setPartOfSpeech("NN");
-		
-		stemEntryD.setStem("bob");
-		stemEntryD.setPartOfSpeech("VB");
-		
-		stemEntryE.setStem("big");
-		stemEntryE.setPartOfSpeech("JJ");
 	}
 	
 	@After
@@ -67,14 +52,18 @@ public class StemEntryFrequencyMapTest {
 	@Test
 	public void testAddEntries(){
 		StemEntryFrequencyMap sefm = new StemEntryFrequencyMap();
+		System.out.println(sefm);
 		sefm.add(stemEntryA);
 		sefm.add(stemEntryB);
 		sefm.add(stemEntryC);
 		sefm.add(stemEntryD);
 		sefm.add(stemEntryE);
-		Assert.assertTrue("Size of sefm should by 4", 4 == sefm.size());
-		Assert.assertTrue(2 == (Integer)sefm.get(stemEntryA));
+		Assert.assertTrue("Size of sefm should by 4, the actual size was " + sefm.size(), 4 == sefm.size());
+		Assert.assertTrue("There should be two bob, bob, v entries, there were actually " + sefm.get(stemEntryA)
+				, 2 == (Integer)sefm.get(stemEntryA));
+		Assert.assertTrue(1 == (Integer)sefm.get(stemEntryC));
 		
+		System.out.println(sefm);
 		
 	}
 }
