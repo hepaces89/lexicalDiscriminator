@@ -15,6 +15,33 @@ public class StemEntry implements Comparable{
 	private String stem;
 	private String partOfSpeech;
 
+	/**
+	 * Checks to see if the StemEntry is equal to the object obj provided.
+	 * @param obj
+	 * @return true of the StemEntries are equivalent
+	 * 
+	 * Two stem entries are equivalent iff both objects are of class StemEntry,
+	 * and the String contents of their stem and part of speech fields are the same.
+	 * 
+	 */
+	@Override
+	public boolean equals(Object obj){
+		boolean isEquals = false;
+		if(obj.getClass() == this.getClass()){
+			StemEntry otherEntry = (StemEntry) obj;
+			boolean stemComparison = org.apache.commons.lang3.StringUtils.equals(this.getStem(), otherEntry.getStem());
+			boolean posComparison = org.apache.commons.lang3.StringUtils.equals(this.getPartOfSpeech(), otherEntry.getPartOfSpeech());
+			isEquals = stemComparison && posComparison;
+		}
+		return isEquals;
+	}
+	
+	@Override
+	public int hashCode(){
+		String combinedStemAndPOS = this.getStem()+this.getPartOfSpeech();
+		return combinedStemAndPOS.hashCode();
+	}
+	
 	@Override
 	public int compareTo(Object t){
 		//guard statements
@@ -22,13 +49,28 @@ public class StemEntry implements Comparable{
 			return -1;
 		}
 		StemEntry stemEntryT = (StemEntry) t;
-		int wordComparison = this.stem.compareTo(stemEntryT.getStem());
+		int stemComparison = this.stem.compareTo(stemEntryT.getStem());
 		int posComparison = this.partOfSpeech.compareTo(stemEntryT.getPartOfSpeech());
-		int result = wordComparison + posComparison;
-		if(result == 0 && (wordComparison != 0 || posComparison !=0) ){
+		int result = stemComparison + posComparison;
+		if(result == 0 && (stemComparison != 0 || posComparison !=0) ){
 			result = 1;
 		}
 		return result;
+	}
+	
+	public StemEntry(String word, String stem, String partOfSpeech){
+		this.word = word;
+		this.stem = stem;
+		this.partOfSpeech = partOfSpeech;
+	}
+	
+	public StemEntry(){
+		this("","","");
+	}
+	
+	@Override
+	public String toString(){
+		return "[" + this.word + ", " + this.stem + ", " + this.partOfSpeech + "]";
 	}
 	
 	/**
