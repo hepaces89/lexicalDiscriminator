@@ -18,16 +18,31 @@ public class StemEntryFrequencyMap extends java.util.HashMap<StemEntry, Integer>
 		super();
 	}
 
+	/**
+	 * Adds the stem entry to the hashmap.
+	 * If a collision occurs the Integer associated with the stem will be incremented by one
+	 * If no collision occurs, then a new entry for the stem will be created that is mapped
+	 * to a value of one.
+	 * @param stemEntry 
+	 */
 	public void add(StemEntry stemEntry) {
 		this.add(stemEntry, 1);
 	}
 	
+	/**
+	 * Adds the stemEntry to the hashmap. If the stemEntry provided is not already
+	 * present in the map, a new entry is created that is mapped to the provided "anotherCount"
+	 * If a collision occurs, the existing value that is mapped to by the stem
+	 * is incremented by the "anotherCount" value.
+	 * @param stemEntry
+	 * @param anotherCount 
+	 */
 	public void add(StemEntry stemEntry, Integer anotherCount) {
 		if (this.containsKey(stemEntry)) {
 			Integer oldValue = (Integer) this.get(stemEntry);
-			this.put(stemEntry, anotherCount + oldValue);
+			this.put(stemEntry, anotherCount.intValue() + oldValue.intValue());
 		} else {
-			this.put(stemEntry, anotherCount);
+			this.put(stemEntry, anotherCount.intValue());
 		}
 	}
 
