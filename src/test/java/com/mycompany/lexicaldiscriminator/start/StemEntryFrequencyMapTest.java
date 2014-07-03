@@ -58,10 +58,12 @@ public class StemEntryFrequencyMapTest {
 		sefm.add(stemEntryC);
 		sefm.add(stemEntryD);
 		sefm.add(stemEntryE);
+		sefm.add(stemEntryE, 2);
 		Assert.assertTrue("Size of sefm should by 4, the actual size was " + sefm.size(), 4 == sefm.size());
 		Assert.assertTrue("There should be two bob, bob, v entries, there were actually " + sefm.get(stemEntryA)
-				, 2 == (Integer)sefm.get(stemEntryA));
-		Assert.assertTrue(1 == (Integer)sefm.get(stemEntryC));
+				, 2 == sefm.get(stemEntryA));
+		Assert.assertTrue(1 == sefm.get(stemEntryC));
+		Assert.assertTrue(3 == sefm.get(stemEntryE));
 		
 		System.out.println(sefm);
 		
