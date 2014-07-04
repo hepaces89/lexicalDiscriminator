@@ -35,7 +35,7 @@ public class StemEntryRunner{
 	 * @param document
 	 * @param stemEntryFrequencyMap 
 	 */
-	public void processDocument(Annotation document, StemEntryFrequencyMap stemEntryFrequencyMap){
+	public void processDocument(Annotation document, StemEntryFrequencyMap[] stemEntryFrequencyMaps){
 		this.textProcessor.annotate(document);
 		//get a list of all the sentences in the text
         //a CoreMap is basically a map that uses class objects as keys and has values with custom types
@@ -56,9 +56,13 @@ public class StemEntryRunner{
 				logger.debug("Processing " + word + ":" + lemma + ":" + pos);
 				stemEntry = new StemEntry(word, lemma, pos);
 				
-				stemEntryFrequencyMap.add(stemEntry);
+				processStemEntry(stemEntryFrequencyMaps, stemEntry);
             }
 
         }
+	}
+
+	protected void processStemEntry(StemEntryFrequencyMap[] stemEntryFrequencyMaps, StemEntry stemEntry) {
+		stemEntryFrequencyMaps[0].add(stemEntry);
 	}
 }
