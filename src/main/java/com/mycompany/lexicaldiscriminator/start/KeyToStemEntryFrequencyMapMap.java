@@ -16,12 +16,19 @@ public class KeyToStemEntryFrequencyMapMap<K> extends java.util.HashMap<K, StemE
 		super();
 	}
 	
+	public KeyToStemEntryFrequencyMapMap(java.util.List<K> keys, StemEntryFrequencyMap sefm){
+		this();
+		for(K key : keys){
+			this.add(key, sefm);
+		}
+	}
+	
 	public void add(K key,StemEntryFrequencyMap value) {
 		if (this.containsKey(key)) {
 			StemEntryFrequencyMap oldValue = this.get(key);
 			StemEntryFrequencyMapManager.mergeFirstStemEntryFrequencyMapIntoSecondStemEntryFrequencyMap(value, oldValue);
 		} else {
-			this.put(key, value);
+			this.put(key, (StemEntryFrequencyMap) value.clone());
 		}
 	}
 }
