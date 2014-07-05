@@ -29,6 +29,14 @@ public class StemEntryFrequencyMap extends java.util.HashMap<StemEntry, Integer>
 		this.add(stemEntry, 1);
 	}
 	
+	public Integer get(StemEntry stemEntry){
+		Integer returnVal = super.get(stemEntry);
+		if(returnVal == null){
+			returnVal = 0;
+		}
+		return returnVal;
+	}
+	
 	/**
 	 * Adds the stemEntry to the hashmap. If the stemEntry provided is not already
 	 * present in the map, a new entry is created that is mapped to the provided "anotherCount"
