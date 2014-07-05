@@ -7,6 +7,7 @@
 package com.mycompany.lexicaldiscriminator.TFIDF;
 
 import com.mycompany.lexicaldiscriminator.start.KeyToStemEntryFrequencyMapMap;
+import com.mycompany.lexicaldiscriminator.start.KeyToStemEntryFrequencyMapMapManager;
 import com.mycompany.lexicaldiscriminator.start.StemEntry;
 import com.mycompany.lexicaldiscriminator.start.StemEntryFrequencyMap;
 import com.mycompany.lexicaldiscriminator.start.StemEntryFrequencyMapManager;
@@ -19,6 +20,18 @@ import java.util.List;
  * @author hubert
  */
 public class TFIDFCombinableResultManager {
+	
+	public static double calculateTFIDFWeightForWordForTopic(StemEntry stem, String topic, TFIDFCombinableResult result){
+		double weight = 0.0;
+		Integer numberOfTimesWordAppearedInTopicRelatedTexts = result.getTopicToForeGroundStatDTOMapping().get(topic).get(stem);
+		if(numberOfTimesWordAppearedInTopicRelatedTexts == null){
+			numberOfTimesWordAppearedInTopicRelatedTexts = 0;
+		}
+		Integer numberOfBackGroundDocsInWhichWordOccured = result.getWordToNumberOfBackGroundDocsTheWordOccursInMapping().get(stem);
+		Double idfWeight = Math.log(result.getNumberOfBackgroundDocsProcessed().doubleValue()/numberOfBackGroundDocsInWhichWordOccured.doubleValue());
+		weight = numberOfTimesWordAppearedInTopicRelatedTexts.doubleValue() * idfWeight;
+		return weight;
+	}
 	
 	/**
 	 * 
@@ -33,9 +46,8 @@ public class TFIDFCombinableResultManager {
 		StemEntryFrequencyMap[] sefms = {docFreqMap, docPresenceMap};
 		runner.processDocument(document, sefms);
 		StemEntryFrequencyMapManager.mergeFirstStemEntryFrequencyMapIntoSecondStemEntryFrequencyMap(docPresenceMap, result.getWordToNumberOfBackGroundDocsTheWordOccursInMapping());
-		for(String topic : documentTopics){
-			result.getTopicToForeGroundStatDTOMapping().add(topic, docFreqMap);
-		}
+		KeyToStemEntryFrequencyMapMap<String> tempKTSEFMM = new KeyToStemEntryFrequencyMapMap<>(documentTopics, docFreqMap);
+		KeyToStemEntryFrequencyMapMapManager.mergeFirstKeyToStemEntryFrequencyMapMapIntoSecondKeyToStemEntryFrequencyMapMap(tempKTSEFMM, result.getTopicToForeGroundStatDTOMapping());
 		result.setNumberOfBackgroundDocsProcessed(1 + result.getNumberOfBackgroundDocsProcessed());
 	}
 	
