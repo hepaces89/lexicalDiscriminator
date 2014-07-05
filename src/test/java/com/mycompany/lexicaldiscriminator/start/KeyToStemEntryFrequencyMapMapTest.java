@@ -77,7 +77,7 @@ public class KeyToStemEntryFrequencyMapMapTest {
 		Assert.assertTrue(ktsefmm.get("topicA").size() == 2);
 		Assert.assertTrue(ktsefmm.get("topicA").get(this.stemEntryBobV1) == 2);
 		Assert.assertTrue(ktsefmm.get("topicA").get(this.stemEntryCancerCancer) == 1);
-		Assert.assertTrue(ktsefmm.get("topicA").get(this.stemEntryChuckChuckN) == null);
+		Assert.assertTrue(ktsefmm.get("topicA").get(this.stemEntryChuckChuckN) == 0);
 		Assert.assertTrue(ktsefmm.get("topicB").get(this.stemEntryChuckChuckN) == 1);
 	}
 }
