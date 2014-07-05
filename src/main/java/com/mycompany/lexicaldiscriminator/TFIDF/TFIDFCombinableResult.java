@@ -6,6 +6,7 @@
 
 package com.mycompany.lexicaldiscriminator.TFIDF;
 
+import com.mycompany.lexicaldiscriminator.start.KeyToStemEntryFrequencyMapMap;
 import com.mycompany.lexicaldiscriminator.start.StemEntryFrequencyMap;
 
 /**
@@ -14,12 +15,12 @@ import com.mycompany.lexicaldiscriminator.start.StemEntryFrequencyMap;
  */
 public class TFIDFCombinableResult {
 	private Integer numberOfBackgroundDocsProcessed = 0;
-	private java.util.HashMap<String, ForeGroundStatDTO> topicToForeGroundStatDTOMapping;
+	private KeyToStemEntryFrequencyMapMap<String> topicToForeGroundStatDTOMapping;
 	private StemEntryFrequencyMap wordToNumberOfBackGroundDocsTheWordOccursInMapping;
 
 	public TFIDFCombinableResult(){
 		this.numberOfBackgroundDocsProcessed = 0;
-		this.topicToForeGroundStatDTOMapping = new java.util.HashMap<String, ForeGroundStatDTO>();
+		this.topicToForeGroundStatDTOMapping = new KeyToStemEntryFrequencyMapMap<>();
 		this.wordToNumberOfBackGroundDocsTheWordOccursInMapping = new StemEntryFrequencyMap();
 	}
 	/**
@@ -37,20 +38,6 @@ public class TFIDFCombinableResult {
 	}
 
 	/**
-	 * @return the topicToForeGroundStatDTOMapping
-	 */
-	public java.util.HashMap<String, ForeGroundStatDTO> getTopicToForeGroundStatDTOMapping() {
-		return topicToForeGroundStatDTOMapping;
-	}
-
-	/**
-	 * @param topicToForeGroundStatDTOMapping the topicToForeGroundStatDTOMapping to set
-	 */
-	public void setTopicToForeGroundStatDTOMapping(java.util.HashMap<String, ForeGroundStatDTO> topicToForeGroundStatDTOMapping) {
-		this.topicToForeGroundStatDTOMapping = topicToForeGroundStatDTOMapping;
-	}
-
-	/**
 	 * @return the wordToNumberOfBackGroundDocsTheWordOccursInMapping
 	 */
 	public StemEntryFrequencyMap getWordToNumberOfBackGroundDocsTheWordOccursInMapping() {
@@ -62,5 +49,19 @@ public class TFIDFCombinableResult {
 	 */
 	public void setWordToNumberOfBackGroundDocsTheWordOccursInMapping(StemEntryFrequencyMap wordToNumberOfBackGroundDocsTheWordOccursInMapping) {
 		this.wordToNumberOfBackGroundDocsTheWordOccursInMapping = wordToNumberOfBackGroundDocsTheWordOccursInMapping;
+	}
+
+	/**
+	 * @return the topicToForeGroundStatDTOMapping
+	 */
+	public KeyToStemEntryFrequencyMapMap<String> getTopicToForeGroundStatDTOMapping() {
+		return topicToForeGroundStatDTOMapping;
+	}
+
+	/**
+	 * @param topicToForeGroundStatDTOMapping the topicToForeGroundStatDTOMapping to set
+	 */
+	public void setTopicToForeGroundStatDTOMapping(KeyToStemEntryFrequencyMapMap<String> topicToForeGroundStatDTOMapping) {
+		this.topicToForeGroundStatDTOMapping = topicToForeGroundStatDTOMapping;
 	}
 }
