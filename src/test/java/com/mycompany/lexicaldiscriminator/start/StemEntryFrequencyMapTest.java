@@ -22,8 +22,8 @@ public class StemEntryFrequencyMapTest {
 	StemEntry stemEntryBobV2 = new StemEntry("bob", "bob", "v");
 	StemEntry stemEntryBobV3 = new StemEntry("bobbing", "bob", "v");
 	StemEntry stemEntryCancerAdj = new StemEntry("cancerous", "cancer", "adj");
-	StemEntry StemEntryCancerN = new StemEntry("cancer", "cancer", "n");
-	StemEntry StemEntryChuckV = new StemEntry("chuck", "chuck", "v");
+	StemEntry stemEntryCancerN = new StemEntry("cancer", "cancer", "n");
+	StemEntry stemEntryChuckV = new StemEntry("chuck", "chuck", "v");
 	
 	public StemEntryFrequencyMapTest() {
 	}
@@ -57,9 +57,9 @@ public class StemEntryFrequencyMapTest {
 		sefm.add(stemEntryBobV1);
 		sefm.add(stemEntryBobV2);
 		sefm.add(stemEntryCancerAdj);
-		sefm.add(StemEntryCancerN);
-		sefm.add(StemEntryChuckV);
-		sefm.add(StemEntryChuckV, 2);
+		sefm.add(stemEntryCancerN);
+		sefm.add(stemEntryChuckV);
+		sefm.add(stemEntryChuckV, 2);
 		sefm.add(stemEntryBobV3);
 		
 		System.out.println(sefm);
@@ -68,7 +68,7 @@ public class StemEntryFrequencyMapTest {
 		Assert.assertTrue("There should be three bob, v entries, there were actually " + sefm.get(stemEntryBobV1)
 				, 3 == sefm.get(stemEntryBobV1));
 		Assert.assertTrue(1 == sefm.get(stemEntryCancerAdj));
-		Assert.assertTrue(3 == sefm.get(StemEntryChuckV));
+		Assert.assertTrue(3 == sefm.get(stemEntryChuckV));
 		
 		
 		
