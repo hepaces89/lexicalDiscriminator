@@ -18,11 +18,12 @@ import org.junit.Test;
  * @author hubert
  */
 public class StemEntryFrequencyMapTest {
-	StemEntry stemEntryA = new StemEntry("bob", "bob", "v");
-	StemEntry stemEntryB = new StemEntry("bob", "bob", "v");
-	StemEntry stemEntryC = new StemEntry("cancerous", "cancer", "adj");
-	StemEntry stemEntryD = new StemEntry("cancer", "cancer", "n");
-	StemEntry stemEntryE = new StemEntry("chuck", "chuck", "v");
+	StemEntry stemEntryBobV1 = new StemEntry("bob", "bob", "v");
+	StemEntry stemEntryBobV2 = new StemEntry("bob", "bob", "v");
+	StemEntry stemEntryBobV3 = new StemEntry("bobbing", "bob", "v");
+	StemEntry stemEntryCancerAdj = new StemEntry("cancerous", "cancer", "adj");
+	StemEntry StemEntryCancerN = new StemEntry("cancer", "cancer", "n");
+	StemEntry StemEntryChuckV = new StemEntry("chuck", "chuck", "v");
 	
 	public StemEntryFrequencyMapTest() {
 	}
@@ -53,19 +54,23 @@ public class StemEntryFrequencyMapTest {
 	public void testAddEntries(){
 		StemEntryFrequencyMap sefm = new StemEntryFrequencyMap();
 		System.out.println(sefm);
-		sefm.add(stemEntryA);
-		sefm.add(stemEntryB);
-		sefm.add(stemEntryC);
-		sefm.add(stemEntryD);
-		sefm.add(stemEntryE);
-		sefm.add(stemEntryE, 2);
-		Assert.assertTrue("Size of sefm should by 4, the actual size was " + sefm.size(), 4 == sefm.size());
-		Assert.assertTrue("There should be two bob, bob, v entries, there were actually " + sefm.get(stemEntryA)
-				, 2 == sefm.get(stemEntryA));
-		Assert.assertTrue(1 == sefm.get(stemEntryC));
-		Assert.assertTrue(3 == sefm.get(stemEntryE));
+		sefm.add(stemEntryBobV1);
+		sefm.add(stemEntryBobV2);
+		sefm.add(stemEntryCancerAdj);
+		sefm.add(StemEntryCancerN);
+		sefm.add(StemEntryChuckV);
+		sefm.add(StemEntryChuckV, 2);
+		sefm.add(stemEntryBobV3);
 		
 		System.out.println(sefm);
+		
+		Assert.assertTrue("Size of sefm should by 4, the actual size was " + sefm.size(), 4 == sefm.size());
+		Assert.assertTrue("There should be three bob, v entries, there were actually " + sefm.get(stemEntryBobV1)
+				, 3 == sefm.get(stemEntryBobV1));
+		Assert.assertTrue(1 == sefm.get(stemEntryCancerAdj));
+		Assert.assertTrue(3 == sefm.get(StemEntryChuckV));
+		
+		
 		
 	}
 }
