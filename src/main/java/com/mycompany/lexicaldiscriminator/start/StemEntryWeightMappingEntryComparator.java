@@ -17,7 +17,11 @@ public class StemEntryWeightMappingEntryComparator implements Comparator<java.ut
 
 	@Override
 	public int compare(Map.Entry<StemEntry, Double> t, Map.Entry<StemEntry, Double> t1) {
-		return Double.compare(t.getValue(), t1.getValue());
+		int result = -1*Double.compare(t.getValue(), t1.getValue());
+		int strResult = t.getKey().compareTo(t1.getKey());
+		if(result == 0){
+			result = result + strResult;
+		}
+		return result;
 	}
-	
 }
