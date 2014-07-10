@@ -12,8 +12,12 @@ import com.mycompany.lexicaldiscriminator.start.StemEntry;
 import com.mycompany.lexicaldiscriminator.start.StemEntryFrequencyMap;
 import com.mycompany.lexicaldiscriminator.start.StemEntryFrequencyMapManager;
 import com.mycompany.lexicaldiscriminator.start.StemEntryRunner;
+import com.mycompany.lexicaldiscriminator.start.StemEntryWeightMappingEntryComparator;
 import edu.stanford.nlp.pipeline.Annotation;
+import java.util.AbstractMap;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.SortedSet;
 
 /**
  *
@@ -31,6 +35,15 @@ public class TFIDFCombinableResultManager {
 		Double idfWeight = Math.log(result.getNumberOfBackgroundDocsProcessed().doubleValue()/numberOfBackGroundDocsInWhichWordOccured.doubleValue());
 		weight = numberOfTimesWordAppearedInTopicRelatedTexts.doubleValue() * idfWeight;
 		return weight;
+	}
+	
+	public static SortedSet<Entry<StemEntry, Double>> getSortedTFIDFWeightSetForTopic(TFIDFCombinableResult result, String topic){
+		SortedSet<Entry<StemEntry, Double>> sortedSet = new java.util.TreeSet<>(new StemEntryWeightMappingEntryComparator());
+		StemEntryFrequencyMap topicSEFM = result.getTopicToForeGroundStatDTOMapping().get(topic);
+		for(StemEntry stem : topicSEFM.keySet()){
+			sortedSet.add(new AbstractMap.SimpleEntry<StemEntry,Double>(stem, calculateTFIDFWeightForWordForTopic(stem, topic, result)));
+		}
+		return sortedSet;
 	}
 	
 	/**
