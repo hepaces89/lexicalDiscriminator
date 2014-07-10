@@ -60,9 +60,9 @@ public class StemEntryWeightMappingEntryComparatorTest {
 		
 		StemEntryWeightMappingEntryComparator sewmec = new StemEntryWeightMappingEntryComparator();
 		
-		Assert.assertTrue(sewmec.compare(b,b) == 0);
-		Assert.assertTrue(sewmec.compare(a,b) > 0);
-		Assert.assertTrue(sewmec.compare(b,a) < 0);
-		Assert.assertTrue(sewmec.compare(a,c) == 0);
+		Assert.assertTrue("should be b==b" ,sewmec.compare(b,b) == 0);
+		Assert.assertTrue("should be a<b" ,sewmec.compare(a,b) < 0);
+		Assert.assertTrue("should be a>b", sewmec.compare(b,a) > 0);
+		Assert.assertTrue("should be a==c" ,sewmec.compare(a,c) == 0);
 	}
 }
