@@ -10,7 +10,7 @@ package com.mycompany.lexicaldiscriminator.start;
  *
  * @author hubert
  */
-public class StemEntry implements Comparable{
+public class StemEntry implements Comparable<StemEntry>{
 	private String word;
 	private String stem;
 	private String partOfSpeech;
@@ -43,11 +43,7 @@ public class StemEntry implements Comparable{
 	}
 	
 	@Override
-	public int compareTo(Object t){
-		//guard statements
-		if(t.getClass() != this.getClass()){
-			return -1;
-		}
+	public int compareTo(StemEntry t) {
 		StemEntry stemEntryT = (StemEntry) t;
 		int stemComparison = this.stem.compareTo(stemEntryT.getStem());
 		int posComparison = this.partOfSpeech.compareTo(stemEntryT.getPartOfSpeech());
@@ -114,4 +110,5 @@ public class StemEntry implements Comparable{
 	public void setPartOfSpeech(String partOfSpeech) {
 		this.partOfSpeech = partOfSpeech;
 	}
+
 }
