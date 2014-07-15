@@ -47,10 +47,10 @@ public class StemEntryFrequencyMap extends java.util.HashMap<StemEntry, Integer>
 	 */
 	public void add(StemEntry stemEntry, Integer anotherCount) {
 		if (this.containsKey(stemEntry)) {
-			Integer oldValue = (Integer) this.get(stemEntry);
-			this.put(stemEntry, anotherCount.intValue() + oldValue.intValue());
+			Integer oldValue = this.get(stemEntry);
+			this.put(stemEntry, anotherCount + oldValue);
 		} else {
-			this.put(stemEntry, anotherCount.intValue());
+			this.put(stemEntry, anotherCount);
 		}
 	}
 
@@ -66,8 +66,29 @@ public class StemEntryFrequencyMap extends java.util.HashMap<StemEntry, Integer>
 		return output;
 	}
 
+	/**
+	 *
+	 * @param other
+	 * @return
+	 */
+	@Override
+	public boolean equals(Object other){
+		boolean serve = false;
+		if(other instanceof StemEntryFrequencyMap){
+			StemEntryFrequencyMap oSEFM = (StemEntryFrequencyMap) other;
+			if(this.size() == oSEFM.size()){
+				serve = org.apache.commons.collections4.CollectionUtils.isEqualCollection(this.entrySet(), oSEFM.entrySet());
+			}
+		}
+		return serve;
+	}
 	public void main(String[] args) {
 
+	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
 	}
 
 }
