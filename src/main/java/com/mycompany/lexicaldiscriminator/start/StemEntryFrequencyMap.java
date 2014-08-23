@@ -9,7 +9,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- *
+ * This class is a specialized map that keeps track of the StemEntries found and an Integer
+ * associated with the StemEntry (i.e. a word count or a presence count)
  * @author hubert
  */
 public class StemEntryFrequencyMap extends java.util.HashMap<StemEntry, Integer> {
