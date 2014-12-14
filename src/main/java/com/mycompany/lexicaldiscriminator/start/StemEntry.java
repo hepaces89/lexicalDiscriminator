@@ -47,10 +47,12 @@ public class StemEntry implements Comparable<StemEntry>{
 		StemEntry stemEntryT = (StemEntry) t;
 		int stemComparison = this.stem.compareTo(stemEntryT.getStem());
 		int posComparison = this.partOfSpeech.compareTo(stemEntryT.getPartOfSpeech());
-		int result = stemComparison + posComparison;
-		if(result == 0 && (stemComparison != 0 || posComparison !=0) ){
-			result = 1;
-		}
+		int result = stemComparison;
+                
+                if(result == 0){
+                    result = result + posComparison;
+                }
+                
 		return result;
 	}
 	
