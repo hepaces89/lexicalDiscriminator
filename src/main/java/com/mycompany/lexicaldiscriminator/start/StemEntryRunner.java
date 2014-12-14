@@ -33,7 +33,7 @@ public class StemEntryRunner{
 	/**
 	 * Processes the document adding all of the component words into the StemEntryFrequencyMap
 	 * @param document
-	 * @param stemEntryFrequencyMap 
+	 * @param stemEntryFrequencyMaps
 	 */
 	public void processDocument(Annotation document, StemEntryFrequencyMap[] stemEntryFrequencyMaps){
 		this.textProcessor.annotate(document);
