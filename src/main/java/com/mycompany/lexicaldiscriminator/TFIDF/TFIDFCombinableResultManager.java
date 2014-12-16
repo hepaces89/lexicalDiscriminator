@@ -25,6 +25,13 @@ import java.util.SortedSet;
  */
 public class TFIDFCombinableResultManager {
 	
+    /**
+     * Calculates the TFIDF weight for a stem (word) for a given topic using the data from the TFIDFCombinableResult
+     * @param stem
+     * @param topic
+     * @param result
+     * @return 
+     */
 	public static double calculateTFIDFWeightForWordForTopic(StemEntry stem, String topic, TFIDFCombinableResult result){
 		double weight = 0.0;
 		Integer numberOfTimesWordAppearedInTopicRelatedTexts = result.getTopicToForeGroundStatDTOMapping().get(topic).get(stem);
@@ -37,6 +44,12 @@ public class TFIDFCombinableResultManager {
 		return weight;
 	}
 	
+        /**
+         * Gets the set of TFIDWeight entries for a particular topic sorted by weight
+         * @param result
+         * @param topic
+         * @return 
+         */
 	public static SortedSet<Entry<StemEntry, Double>> getSortedTFIDFWeightSetForTopic(TFIDFCombinableResult result, String topic){
 		SortedSet<Entry<StemEntry, Double>> sortedSet = new java.util.TreeSet<>(new StemEntryWeightMappingEntryComparator());
 		StemEntryFrequencyMap topicSEFM = result.getTopicToForeGroundStatDTOMapping().get(topic);
