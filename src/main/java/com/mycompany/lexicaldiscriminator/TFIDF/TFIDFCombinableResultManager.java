@@ -53,9 +53,12 @@ public class TFIDFCombinableResultManager {
 	public static SortedSet<Entry<StemEntry, Double>> getSortedTFIDFWeightSetForTopic(TFIDFCombinableResult result, String topic){
 		SortedSet<Entry<StemEntry, Double>> sortedSet = new java.util.TreeSet<>(new StemEntryWeightMappingEntryComparator());
 		StemEntryFrequencyMap topicSEFM = result.getTopicToForeGroundStatDTOMapping().get(topic);
-		for(StemEntry stem : topicSEFM.keySet()){
+                if(topicSEFM != null){
+                    for(StemEntry stem : topicSEFM.keySet()){
 			sortedSet.add(new AbstractMap.SimpleEntry<StemEntry,Double>(stem, calculateTFIDFWeightForWordForTopic(stem, topic, result)));
-		}
+                    }
+                }
+		
 		return sortedSet;
 	}
 	
