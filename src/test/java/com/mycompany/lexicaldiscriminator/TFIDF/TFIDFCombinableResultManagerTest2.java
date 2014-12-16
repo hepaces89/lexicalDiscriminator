@@ -25,7 +25,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * This class test to make sure that the TFIDFCombinableResultManager works as expected
+ * This class test to make sure that the TFIDFCombinableResultManager works as
+ * expected
+ *
  * @author hubert
  */
 public class TFIDFCombinableResultManagerTest2 {
@@ -201,6 +203,13 @@ public class TFIDFCombinableResultManagerTest2 {
         }
 
     }
+    
+    @Test
+    public void testMultipleTags(){
+         List<String[]> corpus = generateSampleArticleList_multipleTags();
+         TFIDFStemEntryRunner runner = new TFIDFStemEntryRunner();
+         
+    }
 
     private static void processList(List<String[]> list, TFIDFCombinableResult dataStore, TFIDFStemEntryRunner runner) {
         for (String[] entry : list) {
@@ -209,23 +218,32 @@ public class TFIDFCombinableResultManagerTest2 {
     }
 
     private static void processEntryArray(String[] entry, TFIDFCombinableResult dataStore, TFIDFStemEntryRunner runner) {
-        List<String> documentTopics = Arrays.asList(entry[3]);
+        List<String> documentTopics = Arrays.asList(entry[3].split(" "));
         Annotation document = new Annotation(entry[2]);
         TFIDFCombinableResultManager.processDocument(documentTopics, document, dataStore, runner);
     }
-    
+
+    private static List<String[]> generateSampleArticleList_multipleTags() {
+        java.util.ArrayList<String[]> serve;
+        serve = new java.util.ArrayList<>();
+        serve.add((String[]) Arrays.asList("11", "MC", "This RDX has been a nightmare. I have been in the shop 12 times since purchasing - 4 times for brakes alone. I've had them cleaned, replaced, rotors and then completely redone again. My memory module has gone, my seat has stopped working, blue tooth stopped working, bubbles on the hood from the paint, everything down to the footrest has fallen off. The rattle in the windows is terrible. Trying to get corporate to take back (WISH ME LUCK). The only good thing about this vehicle is the turbo.", "0 rdx broken turbo", "").toArray());
+        serve.add((String[]) Arrays.asList("10", "MC", "Have owned the car for almost 3 weeks. Wife & I been looking at BMW X3 & Highlander (go figure). Looked at the RDX as a lark! Both of us immediately fell in love with it. It offered so much for the price. ", "6 rdx price", "").toArray());
+        serve.add((String[]) Arrays.asList("52", "MC", "I purchased this vehicle after owning a 2005 Altima, and this was my best decision that I have made so far in life. I have received so many compliments on the vehicle looks. My husband is constantly wanting to drive me around on the weekends in it. I love the sportiness of it and just the overall luxurious feel of the vehicle. The fact that the car comes standard with alot of luxurious features is a plus. With the right deal you can purchase a luxury line vehicle for about the same price as a Honda Accord Ex-L- V6", "8 rdx Honda", "").toArray());
+        serve.add((String[]) Arrays.asList("63", "MC", "I bought this car in Sep '08 and I love this car. It is worth every buck for all the features that come standard with the car. Gas mileage is great for a 3.2L V6. I get 33 mpg highway and 19-24 mpg city. The sound system is really good. Interiors are well crafted. The only con would be slight rattle at low speeds, but no biggie, I can live with it for everything else it offers. ", "9 rdx gas mileage", "").toArray());
+        serve.add((String[]) Arrays.asList("112", "MC", "I looked at a lot of different cars including the Infiniti G35, Audi A4, Lexus IS 350 but found the Acura TL-S to be all I wanted at a great value for the price. It has great performance and handling, a great nav and audio system, comfortable interior, good styling and quality. It is just fun to drive.", "9 infinity acura tlx", "").toArray());
+        serve.add((String[]) Arrays.asList("174", "MC", "After owning German cars for 20 years I've switched to a TSX. This was the only Japanese car that had a German \"feel\" to it, but with none of the reliability issues that have plagued my German car ownership experience. German cars, when not in the shop, are still the benchmark for interior design and driver handling, but the TSX comes so close that it won me over from selecting a Jetta GLI. The driving feel is very Euro, with stiff steering, taught suspension, and would perform very well on the autobahn as it is the Euro Accord. I'm looking forward to a long trouble free ownership. ", "10 tsx reliable jetta", "").toArray());
+        return serve;
+    }
+
     //car review data sourced from: https://archive.ics.uci.edu/ml/datasets/OpinRank+Review+Dataset
+
     /**
-     * @article {opinrank,
-title = {Opinion-Based Entity Ranking},
-journal = {Information Retrieval},
-year = {2011},
-keywords = {adhoc multifaceted search, entity oriented search, entity ranking, entity retrieval, product search},
-doi = {10.1007/s10791-011-9174-8},
-attachments = {[Web Link]},
-author = {Kavita Ganesan and ChengXiang Zhai}
-}
-     * @return 
+     * @article {opinrank, title = {Opinion-Based Entity Ranking}, journal =
+     * {Information Retrieval}, year = {2011}, keywords = {adhoc multifaceted
+     * search, entity oriented search, entity ranking, entity retrieval, product
+     * search}, doi = {10.1007/s10791-011-9174-8}, attachments = {[Web Link]},
+     * author = {Kavita Ganesan and ChengXiang Zhai} }
+     * @return
      */
     private static List<String[]> generateSampleArticleList_OrderedByCategory() {
         java.util.ArrayList<String[]> serve;
