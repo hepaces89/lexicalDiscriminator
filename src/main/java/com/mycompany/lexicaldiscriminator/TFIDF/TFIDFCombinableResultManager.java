@@ -34,12 +34,12 @@ public class TFIDFCombinableResultManager {
      */
 	public static double calculateTFIDFWeightForWordForTopic(StemEntry stem, String topic, TFIDFCombinableResult result){
 		double weight = 0.0;
-		Integer numberOfTimesWordAppearedInTopicRelatedTexts = result.getTopicToForeGroundStatDTOMapping().get(topic).get(stem);
+		Integer numberOfTimesWordAppearedInTopicRelatedTexts = result.getStemFrequenciesByTopic().get(topic).get(stem);
 		if(numberOfTimesWordAppearedInTopicRelatedTexts == null){
 			numberOfTimesWordAppearedInTopicRelatedTexts = 0;
 		}
-		Integer numberOfBackGroundDocsInWhichWordOccured = result.getWordToNumberOfBackGroundDocsTheWordOccursInMapping().get(stem);
-		Double idfWeight = Math.log(result.getNumberOfBackgroundDocsProcessed().doubleValue()/numberOfBackGroundDocsInWhichWordOccured.doubleValue());
+		Integer numberOfBackGroundDocsInWhichWordOccured = result.getDocumentCountsPerStemMapping().get(stem);
+		Double idfWeight = Math.log(result.getProcessedDocumentCount().doubleValue()/numberOfBackGroundDocsInWhichWordOccured.doubleValue());
 		weight = numberOfTimesWordAppearedInTopicRelatedTexts.doubleValue() * idfWeight;
 		return weight;
 	}
@@ -52,7 +52,7 @@ public class TFIDFCombinableResultManager {
          */
 	public static SortedSet<Entry<StemEntry, Double>> getSortedTFIDFWeightSetForTopic(TFIDFCombinableResult result, String topic){
 		SortedSet<Entry<StemEntry, Double>> sortedSet = new java.util.TreeSet<>(new StemEntryWeightMappingEntryComparator());
-		StemEntryFrequencyMap topicSEFM = result.getTopicToForeGroundStatDTOMapping().get(topic);
+		StemEntryFrequencyMap topicSEFM = result.getStemFrequenciesByTopic().get(topic);
                 if(topicSEFM != null){
                     for(StemEntry stem : topicSEFM.keySet()){
 			sortedSet.add(new AbstractMap.SimpleEntry<StemEntry,Double>(stem, calculateTFIDFWeightForWordForTopic(stem, topic, result)));
@@ -74,10 +74,10 @@ public class TFIDFCombinableResultManager {
 		StemEntryFrequencyMap docPresenceMap = new StemEntryFrequencyMap();
 		StemEntryFrequencyMap[] sefms = {docFreqMap, docPresenceMap};
 		runner.processDocument(document, sefms);
-		StemEntryFrequencyMapManager.mergeFirstStemEntryFrequencyMapIntoSecondStemEntryFrequencyMap(docPresenceMap, result.getWordToNumberOfBackGroundDocsTheWordOccursInMapping());
+		StemEntryFrequencyMapManager.mergeFirstStemEntryFrequencyMapIntoSecondStemEntryFrequencyMap(docPresenceMap, result.getDocumentCountsPerStemMapping());
 		KeyToStemEntryFrequencyMapMap<String> tempKTSEFMM = new KeyToStemEntryFrequencyMapMap<>(documentTopics, docFreqMap);
-		KeyToStemEntryFrequencyMapMapManager.mergeFirstKeyToStemEntryFrequencyMapMapIntoSecondKeyToStemEntryFrequencyMapMap(tempKTSEFMM, result.getTopicToForeGroundStatDTOMapping());
-		result.setNumberOfBackgroundDocsProcessed(1 + result.getNumberOfBackgroundDocsProcessed());
+		KeyToStemEntryFrequencyMapMapManager.mergeFirstKeyToStemEntryFrequencyMapMapIntoSecondKeyToStemEntryFrequencyMapMap(tempKTSEFMM, result.getStemFrequenciesByTopic());
+		result.setProcessedDocumentCount(1 + result.getProcessedDocumentCount());
 	}
 	
 	public static void mergeFirstResultIntoSecondResult(TFIDFCombinableResult firstResult, TFIDFCombinableResult secondResult){
@@ -90,8 +90,8 @@ public class TFIDFCombinableResultManager {
 	}
 	
 	private static void mergeFirstResultIntoSecondResult_topicToForeGroundStatDTOMapping(TFIDFCombinableResult firstResult, TFIDFCombinableResult secondResult){
-		KeyToStemEntryFrequencyMapMap<String> firstMapping = firstResult.getTopicToForeGroundStatDTOMapping();
-		KeyToStemEntryFrequencyMapMap<String> secondMapping = secondResult.getTopicToForeGroundStatDTOMapping();
+		KeyToStemEntryFrequencyMapMap<String> firstMapping = firstResult.getStemFrequenciesByTopic();
+		KeyToStemEntryFrequencyMapMap<String> secondMapping = secondResult.getStemFrequenciesByTopic();
 		for(String topic : firstMapping.keySet()){
 			if(secondMapping.containsKey(topic)){
 				StemEntryFrequencyMapManager.mergeFirstStemEntryFrequencyMapIntoSecondStemEntryFrequencyMap(firstMapping.get(topic), secondMapping.get(topic));
@@ -102,14 +102,14 @@ public class TFIDFCombinableResultManager {
 	}
 	
 	private static void mergeFirstResultIntoSecondResult_wordToNumberOfBackGroundDocsTheWordOccursInMapping(TFIDFCombinableResult firstResult, TFIDFCombinableResult secondResult){
-		StemEntryFrequencyMap firstMap = firstResult.getWordToNumberOfBackGroundDocsTheWordOccursInMapping();
-		StemEntryFrequencyMap secondMap = secondResult.getWordToNumberOfBackGroundDocsTheWordOccursInMapping();
+		StemEntryFrequencyMap firstMap = firstResult.getDocumentCountsPerStemMapping();
+		StemEntryFrequencyMap secondMap = secondResult.getDocumentCountsPerStemMapping();
 		StemEntryFrequencyMapManager.mergeFirstStemEntryFrequencyMapIntoSecondStemEntryFrequencyMap(firstMap, secondMap);
 	}
 
 	
 	
 	private static void mergeFirstResultIntoSecondResult_numberOfBackgroundDocsProcessed(TFIDFCombinableResult firstResult, TFIDFCombinableResult secondResult){
-		 secondResult.setNumberOfBackgroundDocsProcessed(secondResult.getNumberOfBackgroundDocsProcessed() + firstResult.getNumberOfBackgroundDocsProcessed());
+		 secondResult.setProcessedDocumentCount(secondResult.getProcessedDocumentCount() + firstResult.getProcessedDocumentCount());
 	}
 }

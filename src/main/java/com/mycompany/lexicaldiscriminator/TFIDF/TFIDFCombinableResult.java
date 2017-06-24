@@ -14,54 +14,54 @@ import com.mycompany.lexicaldiscriminator.start.StemEntryFrequencyMap;
  * @author hubert
  */
 public class TFIDFCombinableResult {
-	private Integer numberOfBackgroundDocsProcessed = 0;
-	private KeyToStemEntryFrequencyMapMap<String> stemFrequencysByTopic;
+	private Integer processedDocumentCount = 0;
+	private KeyToStemEntryFrequencyMapMap<String> stemFrequenciesByTopic;
 	private StemEntryFrequencyMap documentCountsPerStem;
 
 	public TFIDFCombinableResult(){
-		this.numberOfBackgroundDocsProcessed = 0;
-		this.stemFrequencysByTopic = new KeyToStemEntryFrequencyMapMap<>();
+		this.processedDocumentCount = 0;
+		this.stemFrequenciesByTopic = new KeyToStemEntryFrequencyMapMap<>();
 		this.documentCountsPerStem = new StemEntryFrequencyMap();
 	}
 	/**
 	 * @return the numberOfBackgroundDocsProcessed
 	 */
-	public Integer getNumberOfBackgroundDocsProcessed() {
-		return numberOfBackgroundDocsProcessed;
+	public Integer getProcessedDocumentCount() {
+		return processedDocumentCount;
 	}
 
 	/**
 	 * @param numberOfBackgroundDocsProcessed the numberOfBackgroundDocsProcessed to set
 	 */
-	public void setNumberOfBackgroundDocsProcessed(Integer numberOfBackgroundDocsProcessed) {
-		this.numberOfBackgroundDocsProcessed = numberOfBackgroundDocsProcessed;
+	public void setProcessedDocumentCount(Integer numberOfBackgroundDocsProcessed) {
+		this.processedDocumentCount = numberOfBackgroundDocsProcessed;
 	}
 
 	/**
 	 * @return the wordToNumberOfBackGroundDocsTheWordOccursInMapping
 	 */
-	public StemEntryFrequencyMap getWordToNumberOfBackGroundDocsTheWordOccursInMapping() {
+	public StemEntryFrequencyMap getDocumentCountsPerStemMapping() {
 		return documentCountsPerStem;
 	}
 
 	/**
 	 * @param wordToNumberOfBackGroundDocsTheWordOccursInMapping the wordToNumberOfBackGroundDocsTheWordOccursInMapping to set
 	 */
-	public void setWordToNumberOfBackGroundDocsTheWordOccursInMapping(StemEntryFrequencyMap wordToNumberOfBackGroundDocsTheWordOccursInMapping) {
+	public void setDocumentCountsPerStem(StemEntryFrequencyMap wordToNumberOfBackGroundDocsTheWordOccursInMapping) {
 		this.documentCountsPerStem = wordToNumberOfBackGroundDocsTheWordOccursInMapping;
 	}
 
 	/**
 	 * @return the topicToForeGroundStatDTOMapping
 	 */
-	public KeyToStemEntryFrequencyMapMap<String> getTopicToForeGroundStatDTOMapping() {
-		return stemFrequencysByTopic;
+	public KeyToStemEntryFrequencyMapMap<String> getStemFrequenciesByTopic() {
+		return stemFrequenciesByTopic;
 	}
 
 	/**
 	 * @param topicToForeGroundStatDTOMapping the topicToForeGroundStatDTOMapping to set
 	 */
-	public void setTopicToForeGroundStatDTOMapping(KeyToStemEntryFrequencyMapMap<String> topicToForeGroundStatDTOMapping) {
-		this.stemFrequencysByTopic = topicToForeGroundStatDTOMapping;
+	public void setStemFrequenciesByTopic(KeyToStemEntryFrequencyMapMap<String> topicToForeGroundStatDTOMapping) {
+		this.stemFrequenciesByTopic = topicToForeGroundStatDTOMapping;
 	}
 }

@@ -70,60 +70,60 @@ public class TFIDFCombinableResultManagerTest2 {
         TFIDFCombinableResult secondResult = new TFIDFCombinableResult();
 
         //set number of background docs processed
-        firstResult.setNumberOfBackgroundDocsProcessed(3);
-        secondResult.setNumberOfBackgroundDocsProcessed(4);
+        firstResult.setProcessedDocumentCount(3);
+        secondResult.setProcessedDocumentCount(4);
 
         //populate the topic to foregroundstatdtomappings
         ForeGroundStatDTO topicF1_FGSDTO = new ForeGroundStatDTO();
         topicF1_FGSDTO.setForeGroundTopic("topicF1");
         topicF1_FGSDTO.add(this.stemEntryBobV1, 3);
         topicF1_FGSDTO.add(this.stemEntryBobV2);
-        firstResult.getTopicToForeGroundStatDTOMapping().put(topicF1_FGSDTO.getForeGroundTopic(), topicF1_FGSDTO);
+        firstResult.getStemFrequenciesByTopic().put(topicF1_FGSDTO.getForeGroundTopic(), topicF1_FGSDTO);
 
         ForeGroundStatDTO topicF2_FGSDTO = new ForeGroundStatDTO();
         topicF2_FGSDTO.setForeGroundTopic("sharedTopic");
         topicF2_FGSDTO.add(this.stemEntryBobV1, 2);
         topicF2_FGSDTO.add(this.stemEntryChuckChuckN, 2);
-        firstResult.getTopicToForeGroundStatDTOMapping().put(topicF2_FGSDTO.getForeGroundTopic(), topicF2_FGSDTO);
+        firstResult.getStemFrequenciesByTopic().put(topicF2_FGSDTO.getForeGroundTopic(), topicF2_FGSDTO);
 
         ForeGroundStatDTO topicS1_FGSDTO = new ForeGroundStatDTO();
         topicS1_FGSDTO.setForeGroundTopic("topicS1");
         topicS1_FGSDTO.add(this.stemEntryBobV1, 3);
         topicS1_FGSDTO.add(this.stemEntryCancerCancer, 2);
-        secondResult.getTopicToForeGroundStatDTOMapping().put(topicS1_FGSDTO.getForeGroundTopic(), topicS1_FGSDTO);
+        secondResult.getStemFrequenciesByTopic().put(topicS1_FGSDTO.getForeGroundTopic(), topicS1_FGSDTO);
 
         ForeGroundStatDTO topicS2_FGSDTO = new ForeGroundStatDTO();
         topicS2_FGSDTO.setForeGroundTopic("sharedTopic");
         topicS2_FGSDTO.add(this.stemEntryBobV1, 2);
         topicS2_FGSDTO.add(this.stemEntryChuckChuckV, 2);
-        secondResult.getTopicToForeGroundStatDTOMapping().put(topicS2_FGSDTO.getForeGroundTopic(), topicS2_FGSDTO);
+        secondResult.getStemFrequenciesByTopic().put(topicS2_FGSDTO.getForeGroundTopic(), topicS2_FGSDTO);
 
         //populate the background stat data
-        firstResult.getWordToNumberOfBackGroundDocsTheWordOccursInMapping().add(stemEntryBobV1, 5);
-        firstResult.getWordToNumberOfBackGroundDocsTheWordOccursInMapping().add(this.stemEntryBobV2, 3);
-        firstResult.getWordToNumberOfBackGroundDocsTheWordOccursInMapping().add(this.stemEntryCancerCancer, 2);
-        firstResult.getWordToNumberOfBackGroundDocsTheWordOccursInMapping().add(this.stemEntryChuckChuckN);
+        firstResult.getDocumentCountsPerStemMapping().add(stemEntryBobV1, 5);
+        firstResult.getDocumentCountsPerStemMapping().add(this.stemEntryBobV2, 3);
+        firstResult.getDocumentCountsPerStemMapping().add(this.stemEntryCancerCancer, 2);
+        firstResult.getDocumentCountsPerStemMapping().add(this.stemEntryChuckChuckN);
 
-        secondResult.getWordToNumberOfBackGroundDocsTheWordOccursInMapping().add(this.stemEntryBobV1, 5);
-        secondResult.getWordToNumberOfBackGroundDocsTheWordOccursInMapping().add(this.stemEntryCancerCancer, 8);
-        secondResult.getWordToNumberOfBackGroundDocsTheWordOccursInMapping().add(this.stemEntryChuckChuckN, 3);
-        secondResult.getWordToNumberOfBackGroundDocsTheWordOccursInMapping().add(this.stemEntryChuckChuckV, 3);
+        secondResult.getDocumentCountsPerStemMapping().add(this.stemEntryBobV1, 5);
+        secondResult.getDocumentCountsPerStemMapping().add(this.stemEntryCancerCancer, 8);
+        secondResult.getDocumentCountsPerStemMapping().add(this.stemEntryChuckChuckN, 3);
+        secondResult.getDocumentCountsPerStemMapping().add(this.stemEntryChuckChuckV, 3);
 
         TFIDFCombinableResultManager.mergeFirstResultIntoSecondResult(firstResult, secondResult);
 
         Assert.assertTrue("The new number of background docs processed should be the sum of the number of background docs recorded as processed by the two dtos",
-                secondResult.getNumberOfBackgroundDocsProcessed() == 7);
+                secondResult.getProcessedDocumentCount() == 7);
         Assert.assertTrue("The set of topics covered by the new result should be the joined set of unique topics covered by the input results",
-                secondResult.getTopicToForeGroundStatDTOMapping().size() == 3);
-        Assert.assertTrue(secondResult.getTopicToForeGroundStatDTOMapping().get("topicF1").size() == 1);
-        Assert.assertTrue(secondResult.getTopicToForeGroundStatDTOMapping().get("topicS1").size() == 2);
-        Assert.assertTrue(secondResult.getTopicToForeGroundStatDTOMapping().get("sharedTopic").size() == 3);
-        Assert.assertTrue(secondResult.getTopicToForeGroundStatDTOMapping().get("sharedTopic").get(this.stemEntryBobV1) == 4);
+                secondResult.getStemFrequenciesByTopic().size() == 3);
+        Assert.assertTrue(secondResult.getStemFrequenciesByTopic().get("topicF1").size() == 1);
+        Assert.assertTrue(secondResult.getStemFrequenciesByTopic().get("topicS1").size() == 2);
+        Assert.assertTrue(secondResult.getStemFrequenciesByTopic().get("sharedTopic").size() == 3);
+        Assert.assertTrue(secondResult.getStemFrequenciesByTopic().get("sharedTopic").get(this.stemEntryBobV1) == 4);
 
-        Assert.assertTrue(secondResult.getWordToNumberOfBackGroundDocsTheWordOccursInMapping().size() == 4);
-        Assert.assertTrue(secondResult.getWordToNumberOfBackGroundDocsTheWordOccursInMapping().get(this.stemEntryBobV1) == 13);
-        Assert.assertTrue(secondResult.getWordToNumberOfBackGroundDocsTheWordOccursInMapping().get(this.stemEntryChuckChuckV) == 3);
-        Assert.assertTrue(secondResult.getWordToNumberOfBackGroundDocsTheWordOccursInMapping().get(this.stemEntryCancerousCancer) == 0);
+        Assert.assertTrue(secondResult.getDocumentCountsPerStemMapping().size() == 4);
+        Assert.assertTrue(secondResult.getDocumentCountsPerStemMapping().get(this.stemEntryBobV1) == 13);
+        Assert.assertTrue(secondResult.getDocumentCountsPerStemMapping().get(this.stemEntryChuckChuckV) == 3);
+        Assert.assertTrue(secondResult.getDocumentCountsPerStemMapping().get(this.stemEntryCancerousCancer) == 0);
     }
 
     @Test
@@ -148,29 +148,29 @@ public class TFIDFCombinableResultManagerTest2 {
         TFIDFCombinableResult dataStore = new TFIDFCombinableResult();
 
         TFIDFCombinableResultManager.processDocument(wikiPoetTopics, wikiPoet, dataStore, runner);
-        Assert.assertTrue(dataStore.getNumberOfBackgroundDocsProcessed() == 1);
-        Assert.assertTrue(dataStore.getTopicToForeGroundStatDTOMapping().size() == 2);
+        Assert.assertTrue(dataStore.getProcessedDocumentCount() == 1);
+        Assert.assertTrue(dataStore.getStemFrequenciesByTopic().size() == 2);
 
         StemEntry electStem = new StemEntry("elected", "elect", "VB");
-        Assert.assertTrue(!dataStore.getTopicToForeGroundStatDTOMapping().get("poetry").containsKey(electStem));
+        Assert.assertTrue(!dataStore.getStemFrequenciesByTopic().get("poetry").containsKey(electStem));
 
         TFIDFCombinableResultManager.processDocument(wikiPoliticianTopics, wikiPolitician, dataStore, runner);
-        Assert.assertTrue(dataStore.getNumberOfBackgroundDocsProcessed() == 2);
-        Assert.assertTrue(dataStore.getTopicToForeGroundStatDTOMapping().size() == 3);
-        Assert.assertTrue(!dataStore.getTopicToForeGroundStatDTOMapping().get("poetry").containsKey(electStem));
+        Assert.assertTrue(dataStore.getProcessedDocumentCount() == 2);
+        Assert.assertTrue(dataStore.getStemFrequenciesByTopic().size() == 3);
+        Assert.assertTrue(!dataStore.getStemFrequenciesByTopic().get("poetry").containsKey(electStem));
 
         TFIDFCombinableResultManager.processDocument(wikiPoetryBookTopics, wikiPoetryBook, dataStore, runner);
-        Assert.assertTrue(dataStore.getNumberOfBackgroundDocsProcessed() == 3);
-        Assert.assertTrue(dataStore.getTopicToForeGroundStatDTOMapping().size() == 4);
-        Assert.assertTrue(Collections.max(dataStore.getWordToNumberOfBackGroundDocsTheWordOccursInMapping().values()) == 3);
-        Assert.assertTrue(!dataStore.getTopicToForeGroundStatDTOMapping().get("poetry").containsKey(electStem));
+        Assert.assertTrue(dataStore.getProcessedDocumentCount() == 3);
+        Assert.assertTrue(dataStore.getStemFrequenciesByTopic().size() == 4);
+        Assert.assertTrue(Collections.max(dataStore.getDocumentCountsPerStemMapping().values()) == 3);
+        Assert.assertTrue(!dataStore.getStemFrequenciesByTopic().get("poetry").containsKey(electStem));
 
         Assert.assertTrue(TFIDFCombinableResultManager.calculateTFIDFWeightForWordForTopic(new StemEntry("elect", "elect", "VB"), "poetry", dataStore) == 0);
         Assert.assertTrue(Math.floor(TFIDFCombinableResultManager.calculateTFIDFWeightForWordForTopic(new StemEntry("elect", "elect", "VB"), "politics", dataStore)) == 8);
         Assert.assertTrue(Math.floor(TFIDFCombinableResultManager.calculateTFIDFWeightForWordForTopic(new StemEntry("poet", "poet", "NN"), "person", dataStore)) == 1);
 
         Set<Map.Entry<StemEntry, Double>> sortedSet = TFIDFCombinableResultManager.getSortedTFIDFWeightSetForTopic(dataStore, "poetry");
-        Assert.assertTrue(sortedSet.size() == dataStore.getTopicToForeGroundStatDTOMapping().get("poetry").size());
+        Assert.assertTrue(sortedSet.size() == dataStore.getStemFrequenciesByTopic().get("poetry").size());
 
         for (Map.Entry<StemEntry, Double> entry : sortedSet) {
             System.out.println(entry.getKey() + " : " + entry.getValue());
