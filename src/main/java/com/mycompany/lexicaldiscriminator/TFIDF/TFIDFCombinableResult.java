@@ -15,13 +15,13 @@ import com.mycompany.lexicaldiscriminator.start.StemEntryFrequencyMap;
  */
 public class TFIDFCombinableResult {
 	private Integer numberOfBackgroundDocsProcessed = 0;
-	private KeyToStemEntryFrequencyMapMap<String> topicToForeGroundStatDTOMapping;
-	private StemEntryFrequencyMap wordToNumberOfBackGroundDocsTheWordOccursInMapping;
+	private KeyToStemEntryFrequencyMapMap<String> stemFrequencysByTopic;
+	private StemEntryFrequencyMap documentPresenceMap;
 
 	public TFIDFCombinableResult(){
 		this.numberOfBackgroundDocsProcessed = 0;
-		this.topicToForeGroundStatDTOMapping = new KeyToStemEntryFrequencyMapMap<>();
-		this.wordToNumberOfBackGroundDocsTheWordOccursInMapping = new StemEntryFrequencyMap();
+		this.stemFrequencysByTopic = new KeyToStemEntryFrequencyMapMap<>();
+		this.documentPresenceMap = new StemEntryFrequencyMap();
 	}
 	/**
 	 * @return the numberOfBackgroundDocsProcessed
@@ -41,27 +41,27 @@ public class TFIDFCombinableResult {
 	 * @return the wordToNumberOfBackGroundDocsTheWordOccursInMapping
 	 */
 	public StemEntryFrequencyMap getWordToNumberOfBackGroundDocsTheWordOccursInMapping() {
-		return wordToNumberOfBackGroundDocsTheWordOccursInMapping;
+		return documentPresenceMap;
 	}
 
 	/**
 	 * @param wordToNumberOfBackGroundDocsTheWordOccursInMapping the wordToNumberOfBackGroundDocsTheWordOccursInMapping to set
 	 */
 	public void setWordToNumberOfBackGroundDocsTheWordOccursInMapping(StemEntryFrequencyMap wordToNumberOfBackGroundDocsTheWordOccursInMapping) {
-		this.wordToNumberOfBackGroundDocsTheWordOccursInMapping = wordToNumberOfBackGroundDocsTheWordOccursInMapping;
+		this.documentPresenceMap = wordToNumberOfBackGroundDocsTheWordOccursInMapping;
 	}
 
 	/**
 	 * @return the topicToForeGroundStatDTOMapping
 	 */
 	public KeyToStemEntryFrequencyMapMap<String> getTopicToForeGroundStatDTOMapping() {
-		return topicToForeGroundStatDTOMapping;
+		return stemFrequencysByTopic;
 	}
 
 	/**
 	 * @param topicToForeGroundStatDTOMapping the topicToForeGroundStatDTOMapping to set
 	 */
 	public void setTopicToForeGroundStatDTOMapping(KeyToStemEntryFrequencyMapMap<String> topicToForeGroundStatDTOMapping) {
-		this.topicToForeGroundStatDTOMapping = topicToForeGroundStatDTOMapping;
+		this.stemFrequencysByTopic = topicToForeGroundStatDTOMapping;
 	}
 }
