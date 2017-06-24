@@ -50,6 +50,8 @@ public class StemEntryRunner{
                 String word = token.get(CoreAnnotations.TextAnnotation.class);
                 //get the part of speech for the current token (word)
                 String pos = token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
+                pos = simplifyPOS(pos);
+                
 				//get lemmatized/stemmed version
 				String lemma = token.get(CoreAnnotations.LemmaAnnotation.class);
 				
@@ -64,5 +66,20 @@ public class StemEntryRunner{
 
 	protected void processStemEntry(StemEntryFrequencyMap[] stemEntryFrequencyMaps, StemEntry stemEntry) {
 		stemEntryFrequencyMaps[0].add(stemEntry);
+	}
+	
+	public String simplifyPOS(String pos){
+		String simplePos = pos.toUpperCase();
+		
+		if(simplePos.contentEquals("NNS")
+				|| simplePos.contentEquals("NNPS")){
+			simplePos = "NN";
+		}
+		
+		if(simplePos.startsWith("VB")){
+			simplePos = "VB";
+		}
+		
+		return simplePos;
 	}
 }
