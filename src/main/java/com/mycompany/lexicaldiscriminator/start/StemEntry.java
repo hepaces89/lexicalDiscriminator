@@ -57,9 +57,9 @@ public class StemEntry implements Comparable<StemEntry>{
 	}
 	
 	public StemEntry(String word, String stem, String partOfSpeech){
-		this.word = word;
-		this.stem = stem;
-		this.partOfSpeech = partOfSpeech;
+		this.setWord("");
+		this.setStem(stem);
+		this.setPartOfSpeech(partOfSpeech);
 	}
 	
 	public StemEntry(){
@@ -82,7 +82,7 @@ public class StemEntry implements Comparable<StemEntry>{
 	 * @param word the word to set
 	 */
 	public void setWord(String word) {
-		this.word = word;
+		this.word = "";
 	}
 
 	/**
