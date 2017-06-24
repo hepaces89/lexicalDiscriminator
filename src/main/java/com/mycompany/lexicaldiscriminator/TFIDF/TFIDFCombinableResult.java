@@ -16,12 +16,12 @@ import com.mycompany.lexicaldiscriminator.start.StemEntryFrequencyMap;
 public class TFIDFCombinableResult {
 	private Integer numberOfBackgroundDocsProcessed = 0;
 	private KeyToStemEntryFrequencyMapMap<String> stemFrequencysByTopic;
-	private StemEntryFrequencyMap documentPresenceMap;
+	private StemEntryFrequencyMap documentCountsPerStem;
 
 	public TFIDFCombinableResult(){
 		this.numberOfBackgroundDocsProcessed = 0;
 		this.stemFrequencysByTopic = new KeyToStemEntryFrequencyMapMap<>();
-		this.documentPresenceMap = new StemEntryFrequencyMap();
+		this.documentCountsPerStem = new StemEntryFrequencyMap();
 	}
 	/**
 	 * @return the numberOfBackgroundDocsProcessed
@@ -41,14 +41,14 @@ public class TFIDFCombinableResult {
 	 * @return the wordToNumberOfBackGroundDocsTheWordOccursInMapping
 	 */
 	public StemEntryFrequencyMap getWordToNumberOfBackGroundDocsTheWordOccursInMapping() {
-		return documentPresenceMap;
+		return documentCountsPerStem;
 	}
 
 	/**
 	 * @param wordToNumberOfBackGroundDocsTheWordOccursInMapping the wordToNumberOfBackGroundDocsTheWordOccursInMapping to set
 	 */
 	public void setWordToNumberOfBackGroundDocsTheWordOccursInMapping(StemEntryFrequencyMap wordToNumberOfBackGroundDocsTheWordOccursInMapping) {
-		this.documentPresenceMap = wordToNumberOfBackGroundDocsTheWordOccursInMapping;
+		this.documentCountsPerStem = wordToNumberOfBackGroundDocsTheWordOccursInMapping;
 	}
 
 	/**
