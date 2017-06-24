@@ -69,7 +69,7 @@ public class TFIDFCombinableResultManager {
 	 * @param result - the TFIDFCombinableResult to store the results in
 	 * @param runner - the code to process the document
 	 */
-	public static void processDocument(List<String> documentTopics, Annotation document, TFIDFCombinableResult result, StemEntryRunner runner){
+	public static void processDocument(List<String> documentTopics, Annotation document, TFIDFCombinableResult result, TFIDFStemEntryRunner runner){
 		StemEntryFrequencyMap docFreqMap = new StemEntryFrequencyMap();
 		StemEntryFrequencyMap docPresenceMap = new StemEntryFrequencyMap();
 		StemEntryFrequencyMap[] sefms = {docFreqMap, docPresenceMap};
