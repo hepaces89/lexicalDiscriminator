@@ -151,7 +151,7 @@ public class TFIDFCombinableResultManagerTest2 {
         Assert.assertTrue(dataStore.getNumberOfBackgroundDocsProcessed() == 1);
         Assert.assertTrue(dataStore.getTopicToForeGroundStatDTOMapping().size() == 2);
 
-        StemEntry electStem = new StemEntry("elected", "elect", "VBN");
+        StemEntry electStem = new StemEntry("elected", "elect", "VB");
         Assert.assertTrue(!dataStore.getTopicToForeGroundStatDTOMapping().get("poetry").containsKey(electStem));
 
         TFIDFCombinableResultManager.processDocument(wikiPoliticianTopics, wikiPolitician, dataStore, runner);
@@ -165,8 +165,8 @@ public class TFIDFCombinableResultManagerTest2 {
         Assert.assertTrue(Collections.max(dataStore.getWordToNumberOfBackGroundDocsTheWordOccursInMapping().values()) == 3);
         Assert.assertTrue(!dataStore.getTopicToForeGroundStatDTOMapping().get("poetry").containsKey(electStem));
 
-        Assert.assertTrue(TFIDFCombinableResultManager.calculateTFIDFWeightForWordForTopic(new StemEntry("elect", "elect", "VBN"), "poetry", dataStore) == 0);
-        Assert.assertTrue(Math.floor(TFIDFCombinableResultManager.calculateTFIDFWeightForWordForTopic(new StemEntry("elect", "elect", "VBN"), "politics", dataStore)) == 5);
+        Assert.assertTrue(TFIDFCombinableResultManager.calculateTFIDFWeightForWordForTopic(new StemEntry("elect", "elect", "VB"), "poetry", dataStore) == 0);
+        Assert.assertTrue(Math.floor(TFIDFCombinableResultManager.calculateTFIDFWeightForWordForTopic(new StemEntry("elect", "elect", "VB"), "politics", dataStore)) == 8);
         Assert.assertTrue(Math.floor(TFIDFCombinableResultManager.calculateTFIDFWeightForWordForTopic(new StemEntry("poet", "poet", "NN"), "person", dataStore)) == 1);
 
         Set<Map.Entry<StemEntry, Double>> sortedSet = TFIDFCombinableResultManager.getSortedTFIDFWeightSetForTopic(dataStore, "poetry");
