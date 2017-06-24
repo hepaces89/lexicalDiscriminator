@@ -11,8 +11,8 @@ package com.mycompany.lexicaldiscriminator.start;
  * @author hubert
  */
 public class KeyToStemEntryFrequencyMapMapManager {
-	public static void mergeFirstKeyToStemEntryFrequencyMapMapIntoSecondKeyToStemEntryFrequencyMapMap(KeyToStemEntryFrequencyMapMap firstMap, KeyToStemEntryFrequencyMapMap secondMap) {
-		for(Object key : firstMap.keySet()){
+	public static <K> void mergeFirstKeyToStemEntryFrequencyMapMapIntoSecondKeyToStemEntryFrequencyMapMap(KeyToStemEntryFrequencyMapMap<K> firstMap, KeyToStemEntryFrequencyMapMap<K> secondMap) {
+		for(K key : firstMap.keySet()){
 			Object value = firstMap.get(key);
 			if(value == null || !(value instanceof StemEntryFrequencyMap)){
 				value = new StemEntryFrequencyMap();
